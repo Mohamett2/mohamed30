@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Score Tracker</title>
+
+    <!-- ===== CSS (DESIGN) ===== -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 380px;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h1 {
+            color: #0d6efd;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .teams {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .teams input {
+            width: 48%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .teams input:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 6px rgba(13, 110, 253, 0.5);
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .team {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            width: 48%;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .team h2 {
+            color: #343a40;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .team p {
+            font-size: 46px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin: 10px 0;
+        }
+
+        .team button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .team button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .reset {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #dc3545, #ff4d4d);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .reset:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #198754;
+            min-height: 18px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Live Score Tracker</h1>
+
+    <div class="teams">
+        <input type="text" id="teamA" placeholder="Team A Name">
+        <input type="text" id="teamB" placeholder="Team B Name">
+    </div>
+
+    <div class="scoreboard">
+        <div class="team">
+            <h2 id="teamAName">Team A</h2>
+            <p id="scoreA">0</p>
+            <button onclick="addScore('A')">Add Goal</button>
+        </div>
+
+        <div class="team">
+            <h2 id="teamBName">Team B</h2>
+            <p id="scoreB">0</p>
+            <button onclick="addScore('B')">Add Goal</button>
+        </div>
+    </div>
+
+    <button class="reset" onclick="resetScore()">Reset Match</button>
+    <p id="message"></p>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    let scoreA = 0;
+    let scoreB = 0;
+
+    function addScore(team) {
+        let teamAName = document.getElementById("teamA").value;
+        let teamBName = document.getElementById("teamB").value;
+
+        if (teamAName === "" || teamBName === "") {
+            document.getElementById("message").innerText =
+                "Fadlan geli magacyada labada koox!";
+            return;
+        }
+
+        document.getElementById("teamAName").innerText = teamAName;
+        document.getElementById("teamBName").innerText = teamBName;
+
+        if (team === "A") {
+            scoreA++;
+            document.getElementById("scoreA").innerText = scoreA;
+        } else {
+            scoreB++;
+            document.getElementById("scoreB").innerText = scoreB;
+        }
+
+        document.getElementById("message").innerText =
+            "Score updated successfully!";
+    }
+
+    function resetScore() {
+        scoreA = 0;
+        scoreB = 0;
+
+        document.getElementById("scoreA").innerText = 0;
+        document.getElementById("scoreB").innerText = 0;
+        document.getElementById("message").innerText =
+            "Match reset successfully!";
+    }
+</script>
+
+</body>
+</html>
